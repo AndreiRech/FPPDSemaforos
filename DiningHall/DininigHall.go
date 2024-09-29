@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"semaforo/FPPDSemaforo"
-	"time"
+	// "time"
 )
 
 const STUDENTS = 200
@@ -21,7 +21,7 @@ func getFood(i int) {
 
 func dine(i int) {
 	fmt.Printf("Estudante %d está jantando!\n", i)
-	time.Sleep(200 * time.Millisecond)
+	// time.Sleep(200 * time.Millisecond)
 }
 
 func leave(i int) {

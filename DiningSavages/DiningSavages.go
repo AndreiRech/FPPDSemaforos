@@ -20,19 +20,19 @@ const (
 
 func putServingsInPot() {
 	fmt.Printf("Cozinheiro está colocando comida no pote!\n")
-	time.Sleep(200 * time.Millisecond)
+	time.Sleep(100 * time.Millisecond)
 	servings = M
 }
 
 func getServingFromPot(i int) {
 	fmt.Printf("Selvagem %d está servindo seu prato!\n", i)
-	time.Sleep(200 * time.Millisecond)
+	time.Sleep(100 * time.Millisecond)
 	servings -= 1
 }
 
 func eat(i int) {
 	fmt.Printf("Selvagem %d está comendo!\n", i)
-	time.Sleep(200 * time.Millisecond)
+	time.Sleep(100 * time.Millisecond)
 }
 
 func cook() {
