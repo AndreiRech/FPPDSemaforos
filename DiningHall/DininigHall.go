@@ -3,9 +3,10 @@ package main
 import (
 	"fmt"
 	"semaforo/FPPDSemaforo"
+	"time"
 )
 
-const STUDANTS = 2000
+const STUDENTS = 200
 
 var (
 	eating = 0
@@ -15,15 +16,16 @@ var (
 )
 
 func getFood(i int) {
-	fmt.Printf("Estudante %d = entrou e está indo buscar a comida!\n", i)
+	fmt.Printf("Estudante %d entrou e está indo buscar a comida!\n", i)
 }
 
 func dine(i int) {
-	fmt.Printf("Estudante %d = jantando!\n", i)
+	fmt.Printf("Estudante %d está jantando!\n", i)
+	time.Sleep(200 * time.Millisecond)
 }
 
 func leave(i int) {
-	fmt.Printf("Estudante %d = saindo da sala...\n", i)
+	fmt.Printf("Estudante %d saindo da sala...\n", i)
 }
 
 func students(i int) {
@@ -59,7 +61,7 @@ func students(i int) {
 }
 
 func main() {
-	for i := 0; i<STUDANTS; i++ {
+	for i := 0; i<STUDENTS; i++ {
 		go students(i)
 	}
 

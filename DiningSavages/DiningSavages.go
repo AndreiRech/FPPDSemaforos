@@ -3,38 +3,42 @@ package main
 import (
 	"fmt"
 	"semaforo/FPPDSemaforo"
+	"time"
 )
 
 var (
 	servings = 0
+	mutex = FPPDSemaforo.NewSemaphore(1)
 	emptyPot = FPPDSemaforo.NewSemaphore(0)
 	fullPot = FPPDSemaforo.NewSemaphore(0)
-	mutex = FPPDSemaforo.NewSemaphore(1)
 )
 
 const (
 	M = 20
-	COOK = 10
 	SAVAGES = 200
 )
 
-func putServingsInPot(i int) {
-	fmt.Printf("Cozinheiro %d = está colocando comida no pote!\n", i)
+func putServingsInPot() {
+	fmt.Printf("Cozinheiro está colocando comida no pote!\n")
+	time.Sleep(200 * time.Millisecond)
 	servings = M
 }
 
 func getServingFromPot(i int) {
-	fmt.Printf("Selvagem %d = está servindo seu prato!\n", i)
+	fmt.Printf("Selvagem %d está servindo seu prato!\n", i)
+	time.Sleep(200 * time.Millisecond)
+	servings -= 1
 }
 
 func eat(i int) {
-	fmt.Printf("Selvagem %d = está comendo!\n", i)
+	fmt.Printf("Selvagem %d está comendo!\n", i)
+	time.Sleep(200 * time.Millisecond)
 }
 
-func cook(i int) {
+func cook() {
 	for {
 		emptyPot.Wait()
-		putServingsInPot(i)
+		putServingsInPot()
 		fullPot.Signal()
 	}
 }
@@ -46,10 +50,9 @@ func savages(i int) {
 			emptyPot.Signal()
 			fullPot.Wait()
 		}
-		servings -= 1
 		getServingFromPot(i)
 		mutex.Signal()
-
+	
 		eat(i)
 	}
 }
@@ -59,9 +62,7 @@ func main() {
 		go savages(i)
 	}
 
-	for i := 0; i<COOK; i++ {
-		go cook(i)
-	}
+	go cook()
 
 	for {}
 }

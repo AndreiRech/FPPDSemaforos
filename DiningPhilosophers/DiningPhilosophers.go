@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"semaforo/FPPDSemaforo"
+	"time"
 )
 
 const PHILOSOPHERS = 5
@@ -53,8 +54,10 @@ func test(i int) {
 func philosophers(i int) {
 	for {
 		fmt.Printf("Filósofo [%d] está pensando.\n", i)
+		time.Sleep(200 * time.Millisecond)
 		getFork(i)
 		fmt.Printf("Filósofo [%d] está comendo.\n", i)
+		time.Sleep(200 * time.Millisecond)
 		putFork(i)
 	}
 }
